@@ -4,3 +4,8 @@ plugins {
     alias(nyfs.plugins.regutils.loader)
     id 'multiloader-datagen'
 }
+
+dependencies {
+    implementation(nyfs.geckolib.neoforge)
+    implementation(nyfs.sbl.neoforge)
+}

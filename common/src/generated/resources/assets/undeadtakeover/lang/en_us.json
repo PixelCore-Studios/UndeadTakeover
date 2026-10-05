@@ -1,6 +1,8 @@
 {
   "biome.undeadtakeover.blood_birch_forest": "Blood Birch Forest",
+  "biome.undeadtakeover.blood_valley": "Blood Valley",
   "biome.undeadtakeover.rotting_plains": "Rotting Plains",
   "dimension.undeadtakeover.the_revenant": "The Revenant",
+  "entity.undeadtakeover.blood_sipper": "Blood Sipper",
   "itemGroup.undeadtakeover.tab": "Undead Takeover"
 }

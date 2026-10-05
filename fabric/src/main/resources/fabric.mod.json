@@ -17,6 +17,9 @@
     "entrypoints": {
         "main": [
           "com.nyfaria.undeadtakeover.UndeadTakeover"
+        ],
+        "client": [
+          "com.nyfaria.undeadtakeover.UndeadTakeoverClient"
         ]
     },
     "mixins": [

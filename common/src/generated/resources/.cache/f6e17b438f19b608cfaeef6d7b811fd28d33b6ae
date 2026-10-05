@@ -1,5 +1,6 @@
-// 26.1.2	2026-10-02T19:22:21.4376124	World Gen
-abb31ead3ba592b76ed43300df09d616f85f38a7 data/undeadtakeover/dimension/the_revenant.json
+// 26.1.2	2026-10-05T13:51:21.7951798	World Gen
+34d9266971a17565b9272c54c7583f6fe7a1d156 data/undeadtakeover/dimension/the_revenant.json
 3ce6d1219119d7f5319956d5e61e50a185a01b60 data/undeadtakeover/dimension_type/the_revenant.json
 841151c5400e5036e79068ad11fe2ec3807b79b5 data/undeadtakeover/worldgen/biome/blood_birch_forest.json
+841151c5400e5036e79068ad11fe2ec3807b79b5 data/undeadtakeover/worldgen/biome/blood_valley.json
 bb99d038844ff1b50d94aa692afad5c20c944488 data/undeadtakeover/worldgen/biome/rotting_plains.json

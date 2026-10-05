@@ -3,10 +3,13 @@ plugins {
     alias(nyfs.plugins.mdg.loader)
     alias(nyfs.plugins.regutils.loader)
     id 'multiloader-vanilla'
+    id("com.nyfaria.moddingtools.dependencies")
 }
 
 dependencies {
     compileOnly(nyfs.bundles.mixin.common.get())
     annotationProcessor nyfs.mixin.extras.common.get()
     compileOnly nyfs.config.api.common.get()
+    modDeps.requiredMod(nyfs.geckolib.common, "geckolib", null)
+    modDeps.requiredMod(nyfs.sbl.common, "smartbrainlib", null)
 }

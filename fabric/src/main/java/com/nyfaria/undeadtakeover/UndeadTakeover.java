@@ -1,6 +1,8 @@
 package com.nyfaria.undeadtakeover;
 
+import com.nyfaria.undeadtakeover.init.EntityInit;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 
 public class UndeadTakeover implements ModInitializer {
     
@@ -14,5 +16,6 @@ public class UndeadTakeover implements ModInitializer {
         // Use Fabric to bootstrap the Common mod.
         Constants.LOG.info("Hello Fabric world!");
         CommonClass.init();
+        EntityInit.attributeSuppliers.forEach(p -> FabricDefaultAttributeRegistry.register(p.entityTypeSupplier().get(), p.factory().get().build()));
     }
 }

@@ -6,3 +6,8 @@ plugins {
     id("com.nyfaria.moddingtools.publishing")
     id 'multiloader-fabric'
 }
+
+dependencies {
+    modDeps.requiredMod(nyfs.geckolib.fabric, "geckolib", null)
+    modDeps.requiredMod(nyfs.sbl.fabric, "smartbrainlib", null)
+}

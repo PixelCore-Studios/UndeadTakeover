@@ -1,6 +1,7 @@
 package com.nyfaria.undeadtakeover.init;
 
 import com.nyfaria.undeadtakeover.Constants;
+import com.nyfaria.undeadtakeover.entity.BloodSipper;
 import com.nyfaria.undeadtakeover.registration.RegistrationProvider;
 import com.nyfaria.undeadtakeover.registration.RegistryObject;
 import net.minecraft.core.registries.Registries;
@@ -8,6 +9,7 @@ import net.minecraft.resources.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 
 import java.util.ArrayList;
@@ -18,6 +20,9 @@ public class EntityInit {
     public static final RegistrationProvider<EntityType<?>> ENTITIES = RegistrationProvider.get(Registries.ENTITY_TYPE, Constants.MODID);
     public static final List<AttributesRegister<?>> attributeSuppliers = new ArrayList<>();
 
+    public static final RegistryObject<EntityType<?>, EntityType<BloodSipper>> BLOOD_SIPPER = registerLivingEntity("blood_sipper",
+            () -> EntityType.Builder.of(BloodSipper::new, MobCategory.MONSTER).sized(0.9F, 0.9F),
+            BloodSipper::createAttributes);
 
 
     protected static <T extends Entity> RegistryObject<EntityType<?>,EntityType<T>> registerEntity(String name, Supplier<EntityType.Builder<T>> supplier) {

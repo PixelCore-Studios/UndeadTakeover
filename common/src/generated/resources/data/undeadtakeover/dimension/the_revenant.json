@@ -28,6 +28,18 @@
             "temperature": 0.0,
             "weirdness": 0.0
           }
+        },
+        {
+          "biome": "undeadtakeover:blood_valley",
+          "parameters": {
+            "continentalness": 0.0,
+            "depth": 0.0,
+            "erosion": 0.0,
+            "humidity": 0.5,
+            "offset": 0.0,
+            "temperature": 0.0,
+            "weirdness": 0.0
+          }
         }
       ]
     },
