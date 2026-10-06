@@ -1,20 +1,20 @@
 package com.nyfaria.undeadtakeover;
 
+import com.nyfaria.undeadtakeover.init.DataAttachmentsInit;
+import com.nyfaria.undeadtakeover.config.UndeadTakeoverConfig;
 import com.nyfaria.undeadtakeover.init.EntityInit;
+import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.neoforged.fml.config.ModConfig;
 
 public class UndeadTakeover implements ModInitializer {
-    
+
     @Override
     public void onInitialize() {
-        
-        // This method is invoked by the Fabric mod loader when it is ready
-        // to load your mod. You can access Fabric and Common code in this
-        // project.
 
-        // Use Fabric to bootstrap the Common mod.
-        Constants.LOG.info("Hello Fabric world!");
+        ConfigRegistry.INSTANCE.register(Constants.MODID, ModConfig.Type.COMMON, UndeadTakeoverConfig.SPEC);
+        DataAttachmentsInit.init();
         CommonClass.init();
         EntityInit.attributeSuppliers.forEach(p -> FabricDefaultAttributeRegistry.register(p.entityTypeSupplier().get(), p.factory().get().build()));
     }

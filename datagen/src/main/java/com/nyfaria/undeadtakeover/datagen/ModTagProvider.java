@@ -10,6 +10,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.KeyTagProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
@@ -26,7 +27,11 @@ public class ModTagProvider {
 
         @Override
         protected void addTags(HolderLookup.Provider provider) {
-
+            tag(TagInit.HEALTH_RESTORE_FOODS).add(
+                    BuiltInRegistries.ITEM.getResourceKey(Items.GOLDEN_APPLE).orElseThrow(),
+                    BuiltInRegistries.ITEM.getResourceKey(Items.ENCHANTED_GOLDEN_APPLE).orElseThrow(),
+                    BuiltInRegistries.ITEM.getResourceKey(Items.GOLDEN_CARROT).orElseThrow()
+            );
         }
 
         @SafeVarargs

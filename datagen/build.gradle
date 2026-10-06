@@ -5,7 +5,15 @@ plugins {
     id 'multiloader-datagen'
 }
 
+repositories {
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
+}
+
 dependencies {
     implementation(nyfs.geckolib.neoforge)
     implementation(nyfs.sbl.neoforge)
+    implementation(nyfs.config.api.neoforge)
 }

@@ -1,6 +1,7 @@
 package com.nyfaria.undeadtakeover.platform;
 
 import com.nyfaria.undeadtakeover.Constants;
+import com.nyfaria.undeadtakeover.platform.services.IMothAttachHelper;
 import com.nyfaria.undeadtakeover.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
@@ -14,6 +15,10 @@ public class Services {
     // For example this can be used to check if the code is running on Forge vs Fabric, or to ask the modloader if another
     // mod is loaded.
     public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
+
+    // Cross-loader access to the Moth Soul shoulder-perch state attached to a player, backed by
+    // NeoForge's data attachments on NeoForge and Fabric API's data attachments on Fabric.
+    public static final IMothAttachHelper MOTH_SHOULDER = load(IMothAttachHelper.class);
 
 
 

@@ -10,4 +10,5 @@ plugins {
 dependencies {
     modDeps.requiredMod(nyfs.geckolib.fabric, "geckolib", null)
     modDeps.requiredMod(nyfs.sbl.fabric, "smartbrainlib", null)
+    modDeps.requiredMod(nyfs.config.api.fabric, "forgeconfigapiport", null)
 }

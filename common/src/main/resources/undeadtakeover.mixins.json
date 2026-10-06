@@ -5,10 +5,16 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "MixinConsumable",
     "MixinPlayer",
-    "MixinProjectileUtil"
+    "MixinProjectileUtil",
+    "MixinServerPlayer",
+    "PlayerShoulderInvoker"
   ],
   "client": [
+    "LivingEntityRendererAccessor",
+    "MixinAvatarRenderer",
+    "MixinAvatarRenderState",
     "MixinHumanoidMobRenderer",
     "MixinMinecraft"
   ],
