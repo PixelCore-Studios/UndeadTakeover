@@ -49,6 +49,8 @@ import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.HurtBySensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyPlayersSensor;
 import net.tslat.smartbrainlib.util.BrainUtil;
+import net.tslat.smartbrainlib.util.SensoryUtil;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -56,6 +58,7 @@ public class Gravebeak extends Monster implements GeoEntity, SmartBrainOwner<Gra
     public static final String CONTROLLER = "main";
     public static final String GRAB_ANIM = "grab";
 
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.gravebeak.idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("animation.gravebeak.walk");
     private static final RawAnimation RUN = RawAnimation.begin().thenLoop("animation.gravebeak.run");
     private static final RawAnimation GRAB = RawAnimation.begin().thenPlay("animation.gravebeak.grab");
@@ -90,7 +93,7 @@ public class Gravebeak extends Monster implements GeoEntity, SmartBrainOwner<Gra
     @Override
     public List<? extends ExtendedSensor<?>> getSensors(Gravebeak owner) {
         return List.of(
-                new NearbyPlayersSensor<>(),
+                new NearbyPlayersSensor<Gravebeak>().setPredicate((entity, player) -> !player.isSpectator() && !isHeldByGravebeak(player)),
                 new HurtBySensor<>(),
                 new RavineSensor());
     }
@@ -117,7 +120,11 @@ public class Gravebeak extends Monster implements GeoEntity, SmartBrainOwner<Gra
     @Override
     public List<? extends BehaviorControl<?>> getFightingBehaviours(Gravebeak owner) {
         return List.of(
-                new InvalidateAttackTarget<>(),
+                new InvalidateAttackTarget<Gravebeak>().invalidateIf((entity, target) ->
+                        (target instanceof Player player && player.getAbilities().invulnerable)
+                                || !SensoryUtil.isInFollowRange(entity, target)
+                                || !entity.canAttack(target)
+                                || isHeldByGravebeak(target)),
                 new SetWalkTargetToAttackTarget<>().speedModifier(RUN_SPEED),
                 new GrabTarget());
     }
@@ -158,6 +165,15 @@ public class Gravebeak extends Monster implements GeoEntity, SmartBrainOwner<Gra
         this.setAggressive(this.isVehicle()
                 ? BrainUtil.hasMemory(this, MemoryModuleTypeInit.RAVINE_POS.get())
                 : BrainUtil.hasMemory(this, MemoryModuleType.ATTACK_TARGET));
+    }
+
+    private static boolean isHeldByGravebeak(Entity entity) {
+        return entity.getVehicle() instanceof Gravebeak;
+    }
+
+    @Override
+    public @Nullable LivingEntity getTarget() {
+        return this.getTargetFromBrain();
     }
 
     public boolean canGrab() {
@@ -281,7 +297,7 @@ public class Gravebeak extends Monster implements GeoEntity, SmartBrainOwner<Gra
             return test.setAndContinue(running ? RUN : WALK);
         }
 
-        return PlayState.STOP;
+        return test.setAndContinue(IDLE);
     }
 
     @Override
