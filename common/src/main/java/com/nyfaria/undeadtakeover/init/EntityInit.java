@@ -2,6 +2,7 @@ package com.nyfaria.undeadtakeover.init;
 
 import com.nyfaria.undeadtakeover.Constants;
 import com.nyfaria.undeadtakeover.entity.BloodSipper;
+import com.nyfaria.undeadtakeover.entity.Gravebeak;
 import com.nyfaria.undeadtakeover.registration.RegistrationProvider;
 import com.nyfaria.undeadtakeover.registration.RegistryObject;
 import net.minecraft.core.registries.Registries;
@@ -23,6 +24,10 @@ public class EntityInit {
     public static final RegistryObject<EntityType<?>, EntityType<BloodSipper>> BLOOD_SIPPER = registerLivingEntity("blood_sipper",
             () -> EntityType.Builder.of(BloodSipper::new, MobCategory.MONSTER).sized(0.9F, 0.9F),
             BloodSipper::createAttributes);
+
+    public static final RegistryObject<EntityType<?>, EntityType<Gravebeak>> GRAVEBEAK = registerLivingEntity("gravebeak",
+            () -> EntityType.Builder.of(Gravebeak::new, MobCategory.MONSTER).sized(1.2F, 3.0F),
+            Gravebeak::createAttributes);
 
 
     protected static <T extends Entity> RegistryObject<EntityType<?>,EntityType<T>> registerEntity(String name, Supplier<EntityType.Builder<T>> supplier) {

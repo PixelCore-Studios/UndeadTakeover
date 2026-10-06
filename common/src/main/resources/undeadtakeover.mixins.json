@@ -4,8 +4,12 @@
   "package": "com.nyfaria.undeadtakeover.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "MixinPlayer",
+    "MixinProjectileUtil"
+  ],
   "client": [
+    "MixinHumanoidMobRenderer",
     "MixinMinecraft"
   ],
   "server": [],
