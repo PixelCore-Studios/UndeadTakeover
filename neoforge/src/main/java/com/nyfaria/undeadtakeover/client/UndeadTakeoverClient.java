@@ -4,6 +4,7 @@ import com.nyfaria.undeadtakeover.Constants;
 import com.nyfaria.undeadtakeover.client.renderer.BloodSipperRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.GravebeakRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.MothSoulRenderer;
+import com.nyfaria.undeadtakeover.client.renderer.ShadowedRenderer;
 import com.nyfaria.undeadtakeover.init.EntityInit;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -18,5 +19,6 @@ public class UndeadTakeoverClient {
         event.registerEntityRenderer(EntityInit.BLOOD_SIPPER.get(), BloodSipperRenderer::new);
         event.registerEntityRenderer(EntityInit.GRAVEBEAK.get(), GravebeakRenderer::new);
         event.registerEntityRenderer(EntityInit.MOTH_SOUL.get(), MothSoulRenderer::new);
+        event.registerEntityRenderer(EntityInit.SHADOWED.get(), ShadowedRenderer::new);
     }
 }

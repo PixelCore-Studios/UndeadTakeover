@@ -3,6 +3,7 @@ package com.nyfaria.undeadtakeover.platform;
 import com.nyfaria.undeadtakeover.Constants;
 import com.nyfaria.undeadtakeover.platform.services.IMothAttachHelper;
 import com.nyfaria.undeadtakeover.platform.services.IPlatformHelper;
+import com.nyfaria.undeadtakeover.platform.services.ISoulStolenHelper;
 
 import java.util.ServiceLoader;
 
@@ -20,7 +21,7 @@ public class Services {
     // NeoForge's data attachments on NeoForge and Fabric API's data attachments on Fabric.
     public static final IMothAttachHelper MOTH_SHOULDER = load(IMothAttachHelper.class);
 
-
+    public static final ISoulStolenHelper SOUL_STOLEN = load(ISoulStolenHelper.class);
 
     // This code is used to load a service for the current environment. Your implementation of the service must be defined
     // manually by including a text file in META-INF/services named with the fully qualified class name of the service.

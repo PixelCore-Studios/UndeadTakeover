@@ -10,11 +10,11 @@ public class FabricMothAttachHelper implements IMothAttachHelper {
 
     @Override
     public MothAttachState get(Player player) {
-        return ((AttachmentTarget) player).getAttachedOrElse(DataAttachmentsInit.MOTH_SHOULDER, MothAttachState.NONE);
+        return player.getAttachedOrElse(DataAttachmentsInit.MOTH_SHOULDER, MothAttachState.NONE);
     }
 
     @Override
     public void set(Player player, MothAttachState state) {
-        ((AttachmentTarget) player).setAttached(DataAttachmentsInit.MOTH_SHOULDER, state);
+        player.setAttached(DataAttachmentsInit.MOTH_SHOULDER, state);
     }
 }

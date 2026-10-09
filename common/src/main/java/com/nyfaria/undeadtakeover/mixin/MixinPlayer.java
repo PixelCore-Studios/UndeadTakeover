@@ -5,6 +5,8 @@ import com.nyfaria.undeadtakeover.entity.Gravebeak;
 import com.nyfaria.undeadtakeover.entity.data.MothAttachRemovalGate;
 import com.nyfaria.undeadtakeover.entity.data.MothAttachState;
 import com.nyfaria.undeadtakeover.entity.MothSoul;
+import com.nyfaria.undeadtakeover.entity.Shadowed;
+import com.nyfaria.undeadtakeover.entity.data.SoulStolenState;
 import com.nyfaria.undeadtakeover.platform.Services;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -53,6 +55,24 @@ public class MixinPlayer {
         }
 
         Services.MOTH_SHOULDER.set(player, state.withSitTicks(sitTicks));
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void undeadtakeover$tickSoulDrainParalysis(CallbackInfo ci) {
+        Player player = (Player) (Object) this;
+
+        if (!(player.level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        SoulStolenState state = Services.SOUL_STOLEN.get(player);
+
+        if (state.isDraining() && !(serverLevel.getEntity(state.drainerEntityId()) instanceof Shadowed shadowed && shadowed.isAlive())) {
+            state = state.withDrain(0, -1);
+            Services.SOUL_STOLEN.set(player, state);
+        }
+
+        Shadowed.setParalyzed(player, state.isDraining());
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"))

@@ -16,7 +16,8 @@
     "MixinAvatarRenderer",
     "MixinAvatarRenderState",
     "MixinHumanoidMobRenderer",
-    "MixinMinecraft"
+    "MixinMinecraft",
+    "MixinPlayerModel"
   ],
   "server": [],
   "injectors": {

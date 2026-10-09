@@ -1,8 +1,11 @@
 package com.nyfaria.undeadtakeover.mixin;
 
 import com.nyfaria.undeadtakeover.client.MothShoulderRenderData;
+import com.nyfaria.undeadtakeover.client.SoulStolenRenderData;
 import com.nyfaria.undeadtakeover.client.renderer.layers.MothShoulderLayer;
+import com.nyfaria.undeadtakeover.client.renderer.layers.SkeletonHeadLayer;
 import com.nyfaria.undeadtakeover.entity.data.MothAttachState;
+import com.nyfaria.undeadtakeover.entity.data.SoulStolenState;
 import com.nyfaria.undeadtakeover.platform.Services;
 import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -24,16 +27,22 @@ public abstract class MixinAvatarRenderer {
         @SuppressWarnings("unchecked")
         LivingEntityRendererAccessor<AvatarRenderState, PlayerModel> accessor = (LivingEntityRendererAccessor<AvatarRenderState, PlayerModel>) (Object) this;
         accessor.undeadtakeover$addLayer(new MothShoulderLayer(self, context));
+        accessor.undeadtakeover$addLayer(new SkeletonHeadLayer(self, context));
     }
 
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void undeadtakeover$extractMothShoulder(Avatar entity, AvatarRenderState state, float partialTicks, CallbackInfo ci) {
         if (entity instanceof Player player) {
             MothAttachState moth = Services.MOTH_SHOULDER.get(player);
-            MothShoulderRenderData data = (MothShoulderRenderData) (Object) state;
+            MothShoulderRenderData mothData = (MothShoulderRenderData) state;
 
-            data.undeadtakeover$setMothOnShoulder(true, moth.left());
-            data.undeadtakeover$setMothOnShoulder(false, moth.right());
+            mothData.undeadtakeover$setMothOnShoulder(true, moth.left());
+            mothData.undeadtakeover$setMothOnShoulder(false, moth.right());
+
+            SoulStolenState soulState = Services.SOUL_STOLEN.get(player);
+            SoulStolenRenderData soulData = (SoulStolenRenderData) state;
+
+            soulData.undeadtakeover$setFaceless(soulState.faceless());
         }
     }
 }
