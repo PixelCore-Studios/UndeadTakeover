@@ -2,13 +2,16 @@ package com.nyfaria.undeadtakeover.datagen;
 
 import com.nyfaria.undeadtakeover.Constants;
 import com.nyfaria.undeadtakeover.init.BiomeInit;
+import com.nyfaria.undeadtakeover.init.EntityInit;
 import com.nyfaria.undeadtakeover.init.TagInit;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.KeyTagProvider;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
@@ -58,6 +61,20 @@ public class ModTagProvider {
             for (Supplier<? extends Block> block : blocks) {
                 tag(tag).add(BuiltInRegistries.BLOCK.getResourceKey(block.get()).orElseThrow());
             }
+        }
+    }
+
+    public static class ModEntityTypeTags extends KeyTagProvider<EntityType<?>> {
+
+        public ModEntityTypeTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+            super(output, Registries.ENTITY_TYPE, lookupProvider, Constants.MODID);
+        }
+
+        @Override
+        protected void addTags(HolderLookup.Provider provider) {
+            tag(EntityTypeTags.BURN_IN_DAYLIGHT).add(
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.DECAYING_BODY.get()).orElseThrow()
+            );
         }
     }
 

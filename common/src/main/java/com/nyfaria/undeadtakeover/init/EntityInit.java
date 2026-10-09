@@ -2,6 +2,7 @@ package com.nyfaria.undeadtakeover.init;
 
 import com.nyfaria.undeadtakeover.Constants;
 import com.nyfaria.undeadtakeover.entity.BloodSipper;
+import com.nyfaria.undeadtakeover.entity.DecayingBody;
 import com.nyfaria.undeadtakeover.entity.Gravebeak;
 import com.nyfaria.undeadtakeover.entity.MothSoul;
 import com.nyfaria.undeadtakeover.entity.Shadowed;
@@ -38,6 +39,10 @@ public class EntityInit {
     public static final RegistryObject<EntityType<?>, EntityType<Shadowed>> SHADOWED = registerLivingEntity("shadowed",
             () -> EntityType.Builder.of(Shadowed::new, MobCategory.MONSTER).sized(0.9F, 2.2F),
             Shadowed::createAttributes);
+
+    public static final RegistryObject<EntityType<?>, EntityType<DecayingBody>> DECAYING_BODY = registerLivingEntity("decaying_body",
+            () -> EntityType.Builder.of(DecayingBody::new, MobCategory.MONSTER).sized(0.6F, 1.95F),
+            DecayingBody::createAttributes);
 
 
     protected static <T extends Entity> RegistryObject<EntityType<?>,EntityType<T>> registerEntity(String name, Supplier<EntityType.Builder<T>> supplier) {
