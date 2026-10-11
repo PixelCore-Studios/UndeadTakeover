@@ -4,13 +4,17 @@ import com.mojang.datafixers.util.Pair;
 import com.nyfaria.undeadtakeover.Constants;
 import com.nyfaria.undeadtakeover.init.BiomeInit;
 import com.nyfaria.undeadtakeover.init.DimensionInit;
+import com.nyfaria.undeadtakeover.init.StructureInit;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.Pools;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TimelineTags;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -31,10 +35,21 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
+import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
+import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
+import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.timeline.Timeline;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 
@@ -48,7 +63,10 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.DIMENSION_TYPE, ModWorldGenProvider::addDimensionTypes)
             .add(Registries.BIOME, ModWorldGenProvider::addBiomes)
-            .add(Registries.LEVEL_STEM, ModWorldGenProvider::addDimensions);
+            .add(Registries.LEVEL_STEM, ModWorldGenProvider::addDimensions)
+            .add(Registries.TEMPLATE_POOL, ModWorldGenProvider::addTemplatePools)
+            .add(Registries.STRUCTURE, ModWorldGenProvider::addStructures)
+            .add(Registries.STRUCTURE_SET, ModWorldGenProvider::addStructureSets);
 
     public ModWorldGenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of("minecraft", Constants.MODID));
@@ -112,6 +130,44 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
         context.register(DimensionInit.THE_REVENANT_STEM, new LevelStem(
                 dimensionTypes.getOrThrow(DimensionInit.THE_REVENANT_TYPE),
                 new NoiseBasedChunkGenerator(biomeSource, noiseSettings.getOrThrow(NoiseGeneratorSettings.OVERWORLD))
+        ));
+    }
+
+    public static void addTemplatePools(BootstrapContext<StructureTemplatePool> context) {
+        HolderGetter<StructureTemplatePool> pools = context.lookup(Registries.TEMPLATE_POOL);
+        Holder<StructureTemplatePool> empty = pools.getOrThrow(Pools.EMPTY);
+
+        context.register(StructureInit.GREAT_MAUSOLEUM_POOL, new StructureTemplatePool(
+                empty,
+                List.of(Pair.of(
+                        StructurePoolElement.single(Constants.modLoc("great_mausoleum/great_mausoleum").toString()), 1
+                )),
+                StructureTemplatePool.Projection.RIGID
+        ));
+    }
+
+    public static void addStructures(BootstrapContext<Structure> context) {
+        HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
+        HolderGetter<StructureTemplatePool> templates = context.lookup(Registries.TEMPLATE_POOL);
+
+        context.register(StructureInit.GREAT_MAUSOLEUM, new JigsawStructure(
+                new Structure.StructureSettings.Builder(HolderSet.direct(biomes.getOrThrow(BiomeInit.ROTTING_PLAINS)))
+                        .terrainAdapation(TerrainAdjustment.BEARD_THIN)
+                        .build(),
+                templates.getOrThrow(StructureInit.GREAT_MAUSOLEUM_POOL),
+                1,
+                ConstantHeight.of(VerticalAnchor.absolute(0)),
+                false,
+                Heightmap.Types.WORLD_SURFACE_WG
+        ));
+    }
+
+    public static void addStructureSets(BootstrapContext<StructureSet> context) {
+        HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
+
+        context.register(StructureInit.GREAT_MAUSOLEUM_SET, new StructureSet(
+                structures.getOrThrow(StructureInit.GREAT_MAUSOLEUM),
+                new RandomSpreadStructurePlacement(80, 20, RandomSpreadType.TRIANGULAR, 701337)
         ));
     }
 

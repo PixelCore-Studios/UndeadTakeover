@@ -10,6 +10,7 @@ public class ActivityInit {
     private static final RegistrationProvider<Activity> ACTIVITIES = RegistrationProvider.get(Registries.ACTIVITY, Constants.MODID);
 
     public static final RegistryObject<Activity, Activity> CARRY = registerActivity("carry");
+    public static final RegistryObject<Activity, Activity> GRAVE_TERROR_AIR = registerActivity("grave_terror_air");
 
     private static RegistryObject<Activity, Activity> registerActivity(String name) {
         return ACTIVITIES.register(name, () -> new Activity(name));

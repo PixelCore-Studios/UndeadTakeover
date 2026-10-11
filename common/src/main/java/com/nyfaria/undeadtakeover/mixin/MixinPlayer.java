@@ -8,7 +8,9 @@ import com.nyfaria.undeadtakeover.entity.MothSoul;
 import com.nyfaria.undeadtakeover.entity.Shadowed;
 import com.nyfaria.undeadtakeover.entity.data.SoulStolenState;
 import com.nyfaria.undeadtakeover.platform.Services;
+import com.nyfaria.undeadtakeover.worldgen.GraveTerrorMausoleumManager;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -73,6 +75,13 @@ public class MixinPlayer {
         }
 
         Shadowed.setParalyzed(player, state.isDraining());
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void undeadtakeover$tickGraveTerrorMausoleum(CallbackInfo ci) {
+        if ((Player) (Object) this instanceof ServerPlayer serverPlayer) {
+            GraveTerrorMausoleumManager.tickNearby(serverPlayer);
+        }
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"))

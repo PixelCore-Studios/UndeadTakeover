@@ -15,6 +15,7 @@ public class MemoryModuleTypeInit {
 
     public static final RegistryObject<MemoryModuleType<?>, MemoryModuleType<Unit>> CARRYING = registerMemoryModuleType("carrying");
     public static final RegistryObject<MemoryModuleType<?>, MemoryModuleType<BlockPos>> RAVINE_POS = registerMemoryModuleType("ravine_pos");
+    public static final RegistryObject<MemoryModuleType<?>, MemoryModuleType<Unit>> GRAVE_TERROR_AIR_PHASE = registerMemoryModuleType("grave_terror_air_phase");
 
     private static <T> RegistryObject<MemoryModuleType<?>, MemoryModuleType<T>> registerMemoryModuleType(String path) {
         return MEMORY_MODULE_TYPES.register(path, () -> new MemoryModuleType<>(Optional.empty()));

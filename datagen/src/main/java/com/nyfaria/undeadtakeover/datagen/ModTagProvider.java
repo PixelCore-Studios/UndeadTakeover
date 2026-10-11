@@ -75,6 +75,19 @@ public class ModTagProvider {
             tag(EntityTypeTags.BURN_IN_DAYLIGHT).add(
                     BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.DECAYING_BODY.get()).orElseThrow()
             );
+
+            tag(TagInit.UNDEAD_MOBS).add(
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.ZOMBIE).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.HUSK).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.DROWNED).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.ZOMBIE_VILLAGER).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.ZOMBIFIED_PIGLIN).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.SKELETON).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.STRAY).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.WITHER_SKELETON).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.BOGGED).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.DECAYING_BODY.get()).orElseThrow()
+            );
         }
     }
 
