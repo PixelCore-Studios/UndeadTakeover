@@ -6,19 +6,21 @@ import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.animation.AnimationController;
 import com.geckolib.animation.RawAnimation;
 import com.geckolib.util.GeckoLibUtil;
-import com.nyfaria.undeadtakeover.entity.ai.behavior.SetRandomAirWalkTarget;
 import com.nyfaria.undeadtakeover.entity.ai.behavior.SummonUndeadBehaviour;
 import com.nyfaria.undeadtakeover.init.ActivityInit;
+import com.nyfaria.undeadtakeover.init.BlockInit;
 import com.nyfaria.undeadtakeover.init.LootTableInit;
 import com.nyfaria.undeadtakeover.init.MemoryModuleTypeInit;
-import com.nyfaria.undeadtakeover.worldgen.MausoleumInstance;
+import com.nyfaria.undeadtakeover.init.StructureInit;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.RandomizableContainer;
@@ -36,12 +38,22 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
+import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
 import net.tslat.smartbrainlib.api.core.ActivityBuilder;
 import net.tslat.smartbrainlib.api.core.behaviour.base.FirstApplicableBehaviour;
-import net.tslat.smartbrainlib.api.core.behaviour.base.OneRandomBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.look.LookAtTarget;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.misc.Idle;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.path.SetRandomWalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetPlayerLookTarget;
@@ -50,11 +62,14 @@ import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyPlayersSensor;
 import net.tslat.smartbrainlib.util.BrainUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainOwner<GraveTerror> {
     public static final int SHIELD_KILLS_REQUIRED = 20;
-    private static final float GROUND_SPEED = 1.0F;
+    private static final int WAVE_INTERVAL_TICKS = 400;
+    private static final float RUN_SPEED = 1.5F;
 
     private static final EntityDataAccessor<Byte> DATA_PHASE = SynchedEntityData.defineId(GraveTerror.class, EntityDataSerializers.BYTE);
     private static final RawAnimation FLY = RawAnimation.begin().thenLoop("animation.grave_terror.fly");
@@ -65,7 +80,10 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
     private final ServerBossEvent bossEvent;
 
     private int shieldKillsRemaining = SHIELD_KILLS_REQUIRED;
-    private MausoleumInstance mausoleum;
+    private BlockPos hoverPos;
+    private BoundingBox arena;
+    private List<BlockPos> wavePositions = List.of();
+    private List<BlockPos> chestPositions = List.of();
 
     public GraveTerror(EntityType<? extends GraveTerror> type, Level level) {
         super(type, level);
@@ -101,12 +119,12 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
         return this.getPhase() == GraveTerrorPhase.AIR;
     }
 
-    public void setMausoleum(MausoleumInstance mausoleum) {
-        this.mausoleum = mausoleum;
+    public List<BlockPos> getWavePositions() {
+        return this.wavePositions;
     }
 
-    public MausoleumInstance getMausoleum() {
-        return this.mausoleum;
+    public boolean isInArena(Vec3 pos) {
+        return this.arena != null && this.arena.isInside(BlockPos.containing(pos));
     }
 
     @Override
@@ -132,9 +150,9 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
                 new FirstApplicableBehaviour<GraveTerror>(
                         new SetPlayerLookTarget<>(),
                         new SetRandomLookTarget<>()),
-                new OneRandomBehaviour<>(
-                        new SetRandomWalkTarget<>().speedModifier(GROUND_SPEED),
-                        new Idle<>().runFor(entity -> entity.getRandom().nextInt(30, 60))));
+                new SetRandomWalkTarget<GraveTerror>()
+                        .speedModifier(RUN_SPEED)
+                        .isValidPositionIf((entity, pos) -> entity.isInArena(pos)));
     }
 
     @Override
@@ -151,8 +169,8 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
         return ActivityBuilder.<GraveTerror>create(activity)
                 .addMemoryRequirements(MemoryModuleTypeInit.GRAVE_TERROR_AIR_PHASE.get())
                 .behaviours(
-                        new SetRandomAirWalkTarget(1.0F).cooldownFor(40),
-                        new SummonUndeadBehaviour().cooldownFor(1200));
+                        new SetPlayerLookTarget<>(),
+                        new SummonUndeadBehaviour().cooldownFor(WAVE_INTERVAL_TICKS));
     }
 
     @Override
@@ -165,15 +183,15 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
 
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
-        if (this.isAirPhase()) {
+        if (!source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && (this.isAirPhase() || source.is(DamageTypeTags.IS_FALL))) {
             return false;
         }
 
         return super.hurtServer(level, source, amount);
     }
 
-    public void onNearbyUndeadKilled() {
-        if (!this.isAirPhase() || this.shieldKillsRemaining <= 0) {
+    public void onUndeadKilled(BlockPos pos) {
+        if (!this.isAirPhase() || this.shieldKillsRemaining <= 0 || this.arena == null || !this.arena.isInside(pos)) {
             return;
         }
 
@@ -187,11 +205,15 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
 
     private void breakShield() {
         this.setPhase(GraveTerrorPhase.GROUND);
+        this.useGroundMovement();
+        this.bossEvent.setColor(BossEvent.BossBarColor.RED);
+        this.bossEvent.setProgress(1.0F);
+    }
+
+    private void useGroundMovement() {
         this.setNoGravity(false);
         this.moveControl = new MoveControl(this);
         this.navigation = new GroundPathNavigation(this, this.level());
-        this.bossEvent.setColor(BossEvent.BossBarColor.RED);
-        this.bossEvent.setProgress(1.0F);
     }
 
     @Override
@@ -215,12 +237,94 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
     protected void customServerAiStep(ServerLevel level) {
         super.customServerAiStep(level);
 
+        if (this.hoverPos == null) {
+            this.hoverPos = this.blockPosition();
+        }
+
+        if (this.arena == null && this.tickCount % 20 == 0) {
+            this.resolveArena(level);
+        }
+
         if (this.isAirPhase()) {
             BrainUtil.setMemory(this, MemoryModuleTypeInit.GRAVE_TERROR_AIR_PHASE.get(), Unit.INSTANCE);
+            this.holdHover();
         }
         else {
             BrainUtil.clearMemory(this, MemoryModuleTypeInit.GRAVE_TERROR_AIR_PHASE.get());
             this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        }
+    }
+
+    private void holdHover() {
+        Vec3 target = Vec3.atBottomCenterOf(this.hoverPos);
+
+        if (this.position().distanceToSqr(target) > 0.04) {
+            this.getMoveControl().setWantedPosition(target.x, target.y, target.z, 1.0);
+        }
+    }
+
+    private void resolveArena(ServerLevel level) {
+        Structure structure = level.registryAccess().lookupOrThrow(Registries.STRUCTURE).getOrThrow(StructureInit.GREAT_MAUSOLEUM).value();
+        StructureStart start = level.structureManager().getStructureAt(this.hoverPos, structure);
+
+        if (!start.isValid()) {
+            return;
+        }
+
+        List<BlockPos> waves = new ArrayList<>();
+        List<BlockPos> chests = new ArrayList<>();
+
+        for (StructurePiece piece : start.getPieces()) {
+            if (!(piece instanceof PoolElementStructurePiece poolPiece) || !(poolPiece.getElement() instanceof SinglePoolElement single)) {
+                continue;
+            }
+
+            Optional<StructureTemplate> template = level.getStructureManager().get(single.getTemplateLocation());
+
+            if (template.isEmpty()) {
+                continue;
+            }
+
+            StructurePlaceSettings settings = new StructurePlaceSettings().setRotation(poolPiece.getRotation());
+
+            for (StructureTemplate.StructureBlockInfo info : template.get().filterBlocks(poolPiece.getPosition(), settings, BlockInit.WAVE_BLOCK.get())) {
+                waves.add(info.pos());
+            }
+
+            for (StructureTemplate.StructureBlockInfo info : template.get().filterBlocks(poolPiece.getPosition(), settings, Blocks.CHEST)) {
+                chests.add(info.pos());
+            }
+        }
+
+        this.arena = start.getBoundingBox();
+        this.wavePositions = List.copyOf(waves);
+        this.chestPositions = List.copyOf(chests);
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putByte("Phase", (byte) this.getPhase().ordinal());
+        output.putInt("ShieldKillsRemaining", this.shieldKillsRemaining);
+
+        if (this.hoverPos != null) {
+            output.store("HoverPos", BlockPos.CODEC, this.hoverPos);
+        }
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.shieldKillsRemaining = input.getIntOr("ShieldKillsRemaining", SHIELD_KILLS_REQUIRED);
+        this.hoverPos = input.read("HoverPos", BlockPos.CODEC).orElse(null);
+
+        if (input.getByteOr("Phase", (byte) GraveTerrorPhase.AIR.ordinal()) == GraveTerrorPhase.GROUND.ordinal()) {
+            this.setPhase(GraveTerrorPhase.GROUND);
+            this.useGroundMovement();
+            this.bossEvent.setColor(BossEvent.BossBarColor.RED);
+        }
+        else {
+            this.bossEvent.setProgress(this.shieldKillsRemaining / (float) SHIELD_KILLS_REQUIRED);
         }
     }
 
@@ -229,8 +333,8 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
         super.die(damageSource);
         this.bossEvent.removeAllPlayers();
 
-        if (this.level() instanceof ServerLevel serverLevel && this.mausoleum != null) {
-            for (BlockPos pos : this.mausoleum.chestPositions()) {
+        if (this.level() instanceof ServerLevel serverLevel) {
+            for (BlockPos pos : this.chestPositions) {
                 RandomizableContainer.setBlockEntityLootTable(serverLevel, serverLevel.getRandom(), pos, LootTableInit.GREAT_MAUSOLEUM_CHEST);
             }
         }

@@ -43,7 +43,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     }
 
     protected boolean shouldGenerateLoot(Block block) {
-        return block.asItem() != Items.AIR && !(block instanceof DropExperienceBlock);
+        return block.asItem() != Items.AIR && !(block instanceof DropExperienceBlock) && block.getLootTable().isPresent();
     }
 
     protected LootTable.Builder createOreStoneDrops(Block pCropBlock, Item pGrownCropItem, Item pSeedsItem, LootItemCondition.Builder state, LootItemCondition.Builder state2, LootItemCondition.Builder state3) {
