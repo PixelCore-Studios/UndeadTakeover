@@ -2,6 +2,7 @@ package com.nyfaria.undeadtakeover;
 
 import com.nyfaria.undeadtakeover.client.renderer.BloodSipperRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.DecayingBodyRenderer;
+import com.nyfaria.undeadtakeover.client.renderer.DicephalusRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.GravebeakRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.GraveTerrorRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.MothSoulRenderer;
@@ -19,6 +20,7 @@ public class UndeadTakeoverClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntityInit.MOTH_SOUL.get(), MothSoulRenderer::new);
         EntityRendererRegistry.register(EntityInit.SHADOWED.get(), ShadowedRenderer::new);
         EntityRendererRegistry.register(EntityInit.DECAYING_BODY.get(), DecayingBodyRenderer::new);
+        EntityRendererRegistry.register(EntityInit.DICEPHALUS.get(), DicephalusRenderer::new);
         EntityRendererRegistry.register(EntityInit.GRAVE_TERROR.get(), GraveTerrorRenderer::new);
     }
 }

@@ -9,6 +9,7 @@
     "minecraft:stray",
     "minecraft:wither_skeleton",
     "minecraft:bogged",
-    "undeadtakeover:decaying_body"
+    "undeadtakeover:decaying_body",
+    "undeadtakeover:dicephalus"
   ]
 }

@@ -73,7 +73,8 @@ public class ModTagProvider {
         @Override
         protected void addTags(HolderLookup.Provider provider) {
             tag(EntityTypeTags.BURN_IN_DAYLIGHT).add(
-                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.DECAYING_BODY.get()).orElseThrow()
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.DECAYING_BODY.get()).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.DICEPHALUS.get()).orElseThrow()
             );
 
             tag(TagInit.UNDEAD_MOBS).add(
@@ -86,7 +87,8 @@ public class ModTagProvider {
                     BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.STRAY).orElseThrow(),
                     BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.WITHER_SKELETON).orElseThrow(),
                     BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityType.BOGGED).orElseThrow(),
-                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.DECAYING_BODY.get()).orElseThrow()
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.DECAYING_BODY.get()).orElseThrow(),
+                    BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.DICEPHALUS.get()).orElseThrow()
             );
         }
     }
