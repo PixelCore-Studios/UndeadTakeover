@@ -1,7 +1,6 @@
 plugins {
     id 'multiloader-loader'
     alias(nyfs.plugins.loom.loader)
-    alias(nyfs.plugins.regutils.loader)
     id("com.nyfaria.moddingtools.dependencies")
     id("com.nyfaria.moddingtools.publishing")
     id 'multiloader-fabric'
@@ -11,4 +10,8 @@ dependencies {
     modDeps.requiredMod(nyfs.geckolib.fabric, "geckolib", null)
     modDeps.requiredMod(nyfs.sbl.fabric, "smartbrainlib", null)
     modDeps.requiredMod(nyfs.config.api.fabric, "forgeconfigapiport", null)
+}
+
+modPublishing {
+    file = tasks.named('jar').flatMap { it.archiveFile }
 }
