@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "undeadtakeover:block/blood_birch_log_top",
+    "side": "undeadtakeover:block/blood_birch_log"
+  }
+}

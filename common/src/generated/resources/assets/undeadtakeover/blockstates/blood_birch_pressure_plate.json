@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "undeadtakeover:block/blood_birch_pressure_plate"
+    },
+    "powered=true": {
+      "model": "undeadtakeover:block/blood_birch_pressure_plate_down"
+    }
+  }
+}

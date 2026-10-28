@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "undeadtakeover:block/revenant_anchor_bottom",
+    "side": "undeadtakeover:block/revenant_anchor_side0",
+    "top": "undeadtakeover:block/revenant_anchor_top_off"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "undeadtakeover:block/blood_birch_planks"
+  }
+}

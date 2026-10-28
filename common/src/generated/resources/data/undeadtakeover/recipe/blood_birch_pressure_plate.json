@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "undeadtakeover:blood_birch_planks"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "undeadtakeover:blood_birch_pressure_plate"
+  }
+}

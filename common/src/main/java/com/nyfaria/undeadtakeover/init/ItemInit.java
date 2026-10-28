@@ -5,9 +5,12 @@ import com.nyfaria.undeadtakeover.registration.RegistrationProvider;
 import com.nyfaria.undeadtakeover.registration.RegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
 public class ItemInit {
@@ -22,6 +25,11 @@ public class ItemInit {
                     }).title(Component.translatable("itemGroup." + Constants.MODID + ".tab"))
             .build());
 
+    public static final RegistryObject<Item, BucketItem> BLOOD_BUCKET = ITEMS.register("blood_bucket",
+            () -> new BucketItem(FluidInit.BLOOD.get(), getItemProperties()
+                    .setId(ResourceKey.create(Registries.ITEM, Constants.modLoc("blood_bucket")))
+                    .craftRemainder(Items.BUCKET)
+                    .stacksTo(1)));
 
     public static Item.Properties getItemProperties() {
         return new Item.Properties();

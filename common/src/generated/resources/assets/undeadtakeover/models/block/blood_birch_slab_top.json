@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "undeadtakeover:block/blood_birch_planks",
+    "side": "undeadtakeover:block/blood_birch_planks",
+    "top": "undeadtakeover:block/blood_birch_planks"
+  }
+}

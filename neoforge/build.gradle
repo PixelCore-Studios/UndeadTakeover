@@ -10,4 +10,14 @@ dependencies {
     modDeps.requiredMod(nyfs.geckolib.neoforge, "geckolib", null)
     modDeps.requiredMod(nyfs.sbl.neoforge, "smartbrainlib", null)
     modDeps.requiredMod(nyfs.config.api.neoforge, "forgeconfigapiport", null)
+    modDeps.requiredMod("com.nyfaria.awcapi:awcapi-neoforge-26.1:1.0.2", "awcapi", null)
+}
+
+configurations.all {
+    resolutionStrategy.capabilitiesResolution.withCapability("com.nyfaria.awcapi:awcapi") {
+        def preferred = candidates.find { it.id.toString().contains("awcapi-neoforge") }
+        if (preferred != null) {
+            select(preferred)
+        }
+    }
 }

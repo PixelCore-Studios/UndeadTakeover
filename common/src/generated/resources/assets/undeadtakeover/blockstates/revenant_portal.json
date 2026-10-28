@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "undeadtakeover:block/revenant_portal_ns"
+    },
+    "axis=z": {
+      "model": "undeadtakeover:block/revenant_portal_ew"
+    }
+  }
+}

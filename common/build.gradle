@@ -11,4 +11,5 @@ dependencies {
     compileOnly nyfs.config.api.common.get()
     modDeps.requiredMod(nyfs.geckolib.common, "geckolib", null)
     modDeps.requiredMod(nyfs.sbl.common, "smartbrainlib", null)
+    modDeps.requiredMod("com.nyfaria.awcapi:awcapi-common-26.1:1.0.2", "awcapi", null)
 }

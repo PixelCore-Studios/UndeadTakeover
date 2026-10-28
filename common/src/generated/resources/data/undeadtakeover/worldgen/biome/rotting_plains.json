@@ -2,7 +2,7 @@
   "attributes": {
     "minecraft:visual/fog_color": "#7f8c6e",
     "minecraft:visual/sky_color": "#6e7a64",
-    "minecraft:visual/water_fog_color": "#2b3524"
+    "minecraft:visual/water_fog_color": "#4a0508"
   },
   "carvers": [
     "minecraft:cave",
@@ -13,13 +13,14 @@
   "effects": {
     "foliage_color": "#5a6838",
     "grass_color": "#6b7a45",
-    "water_color": "#4e5e3a"
+    "water_color": "#8a0f12"
   },
   "features": [
     [],
     [
       "minecraft:lake_lava_underground",
-      "minecraft:lake_lava_surface"
+      "minecraft:lake_lava_surface",
+      "undeadtakeover:blood_lake"
     ],
     [
       "minecraft:amethyst_geode"
@@ -57,18 +58,22 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
-      "minecraft:disk_sand",
-      "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "undeadtakeover:blood_disk_sand",
+      "undeadtakeover:blood_disk_clay"
     ],
     [],
     [
-      "minecraft:spring_water",
+      "undeadtakeover:blood_spring",
       "minecraft:spring_lava"
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:patch_tall_grass_2"
+      "undeadtakeover:rotting_plains_trees",
+      "minecraft:patch_grass_plain",
+      "minecraft:patch_tall_grass_2",
+      "minecraft:patch_dead_bush",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -83,6 +88,12 @@
         "maxCount": 8,
         "minCount": 8,
         "weight": 10
+      },
+      {
+        "type": "undeadtakeover:moth_soul",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 15
       }
     ],
     "axolotls": [],
@@ -90,22 +101,100 @@
     "misc": [],
     "monster": [
       {
-        "type": "minecraft:zombie",
+        "type": "undeadtakeover:decaying_body",
         "maxCount": 4,
-        "minCount": 4,
+        "minCount": 2,
         "weight": 100
       },
       {
-        "type": "minecraft:zombie_villager",
+        "type": "undeadtakeover:dicephalus",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 25
+      },
+      {
+        "type": "undeadtakeover:wiggler",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 30
+      },
+      {
+        "type": "undeadtakeover:blood_sipper",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
+      },
+      {
+        "type": "undeadtakeover:gravebeak",
         "maxCount": 1,
         "minCount": 1,
         "weight": 20
       },
       {
-        "type": "minecraft:skeleton",
+        "type": "undeadtakeover:shadowed",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 10
+      },
+      {
+        "type": "undeadtakeover:lanky",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 15
+      },
+      {
+        "type": "undeadtakeover:shingled",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
+      },
+      {
+        "type": "undeadtakeover:skull_spirit",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 15
+      },
+      {
+        "type": "undeadtakeover:undead_sheep",
         "maxCount": 4,
         "minCount": 2,
-        "weight": 60
+        "weight": 25
+      },
+      {
+        "type": "undeadtakeover:undead_cat",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 15
+      },
+      {
+        "type": "undeadtakeover:undead_wolf",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 20
+      },
+      {
+        "type": "undeadtakeover:undead_axolotl",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 15
+      },
+      {
+        "type": "minecraft:zombie",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 40
+      },
+      {
+        "type": "minecraft:zombie_villager",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "minecraft:skeleton",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 40
       }
     ],
     "underground_water_creature": [

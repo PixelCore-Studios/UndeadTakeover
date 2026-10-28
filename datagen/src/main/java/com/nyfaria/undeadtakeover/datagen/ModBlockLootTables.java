@@ -26,6 +26,9 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        this.add(BlockInit.BLOOD_BIRCH_LEAVES.get(), createLeavesDrops(BlockInit.BLOOD_BIRCH_LEAVES.get(), BlockInit.BLOOD_BIRCH_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(BlockInit.BLOOD_BIRCH_SLAB.get(), createSlabItemTable(BlockInit.BLOOD_BIRCH_SLAB.get()));
+        this.add(BlockInit.BLOOD_BIRCH_DOOR.get(), createDoorTable(BlockInit.BLOOD_BIRCH_DOOR.get()));
         this.getBlockStream().filter(this::shouldDropSelf).forEach(this::dropSelf);
     }
 
@@ -39,7 +42,12 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     }
 
     protected boolean shouldDropSelf(Block block) {
-        return shouldGenerateLoot(block);
+        return shouldGenerateLoot(block)
+                && block != BlockInit.BLOOD_BIRCH_LEAVES.get()
+                && block != BlockInit.BLOOD_BIRCH_SLAB.get()
+                && block != BlockInit.BLOOD_BIRCH_DOOR.get()
+                && block != BlockInit.BLOOD_BIRCH_WALL_SIGN.get()
+                && block != BlockInit.BLOOD_BIRCH_WALL_HANGING_SIGN.get();
     }
 
     protected boolean shouldGenerateLoot(Block block) {

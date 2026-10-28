@@ -36,7 +36,9 @@ public class ModLangProvider extends LanguageProvider {
     protected void addTranslations() {
         ItemInit.ITEMS.getEntries().forEach(this::itemLang);
         EntityInit.ENTITIES.getEntries().forEach(this::entityLang);
-        BlockInit.BLOCKS.getEntries().forEach(this::blockLang);
+        BlockInit.BLOCKS.getEntries().stream()
+                .filter(entry -> entry != BlockInit.BLOOD_BIRCH_WALL_SIGN && entry != BlockInit.BLOOD_BIRCH_WALL_HANGING_SIGN)
+                .forEach(this::blockLang);
         biomeLang(BiomeInit.ROTTING_PLAINS);
         biomeLang(BiomeInit.BLOOD_BIRCH_FOREST);
         biomeLang(BiomeInit.BLOOD_VALLEY);

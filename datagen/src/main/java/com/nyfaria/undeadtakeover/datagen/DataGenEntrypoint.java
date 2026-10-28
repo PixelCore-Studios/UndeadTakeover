@@ -27,6 +27,7 @@ public class DataGenEntrypoint {
         generator.addProvider(true, new ModTagProvider.ModItemTags(packOutput, lookupProvider));
         generator.addProvider(true, new ModTagProvider.ModBiomeTags(packOutput, worldGenProvider.getRegistryProvider()));
         generator.addProvider(true, new ModTagProvider.ModEntityTypeTags(packOutput, lookupProvider));
+        generator.addProvider(true, new ModTagProvider.ModFluidTags(packOutput, lookupProvider));
         generator.addProvider(true, new ModModelProvider(packOutput));
         generator.addProvider(true, new ModLangProvider(packOutput));
     }

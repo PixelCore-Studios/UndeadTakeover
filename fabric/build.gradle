@@ -7,11 +7,22 @@ plugins {
 }
 
 dependencies {
+    modDeps.requiredMod("net.fabricmc.fabric-api:fabric-api:0.155.2+26.1.2", "fabric-api", null)
     modDeps.requiredMod(nyfs.geckolib.fabric, "geckolib", null)
     modDeps.requiredMod(nyfs.sbl.fabric, "smartbrainlib", null)
     modDeps.requiredMod(nyfs.config.api.fabric, "forgeconfigapiport", null)
+    modDeps.requiredMod("com.nyfaria.awcapi:awcapi-fabric-26.1:1.0.2", "awcapi", null)
 }
 
 modPublishing {
     file = tasks.named('jar').flatMap { it.archiveFile }
+}
+
+configurations.all {
+    resolutionStrategy.capabilitiesResolution.withCapability("com.nyfaria.awcapi:awcapi") {
+        def preferred = candidates.find { it.id.toString().contains("awcapi-fabric") }
+        if (preferred != null) {
+            select(preferred)
+        }
+    }
 }

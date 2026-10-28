@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "undeadtakeover:block/blood_birch_stripped_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "undeadtakeover:block/blood_birch_stripped_log"
+    },
+    "axis=z": {
+      "model": "undeadtakeover:block/blood_birch_stripped_log_horizontal",
+      "x": 90
+    }
+  }
+}

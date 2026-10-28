@@ -3,6 +3,7 @@ package com.nyfaria.undeadtakeover;
 import com.nyfaria.undeadtakeover.init.ActivityInit;
 import com.nyfaria.undeadtakeover.init.BlockInit;
 import com.nyfaria.undeadtakeover.init.EntityInit;
+import com.nyfaria.undeadtakeover.init.FluidInit;
 import com.nyfaria.undeadtakeover.init.ItemInit;
 import com.nyfaria.undeadtakeover.init.MemoryModuleTypeInit;
 import com.nyfaria.undeadtakeover.init.SensorTypeInit;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.Items;
 public class CommonClass {
 
     public static void init() {
+        FluidInit.loadClass();
         ItemInit.loadClass();
         BlockInit.loadClass();
         EntityInit.loadClass();

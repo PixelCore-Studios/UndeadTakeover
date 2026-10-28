@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "undeadtakeover:block/blood_birch_leaves"
+  }
+}

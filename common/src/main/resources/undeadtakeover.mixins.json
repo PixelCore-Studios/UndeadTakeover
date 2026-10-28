@@ -7,15 +7,19 @@
   "mixins": [
     "MixinConsumable",
     "MixinLivingEntity",
+    "MixinMob",
+    "MixinMonster",
     "MixinPlayer",
     "MixinProjectileUtil",
     "MixinServerPlayer",
-    "PlayerShoulderInvoker"
+    "PlayerShoulderInvoker",
+    "SpawnPlacementsInvoker"
   ],
   "client": [
     "LivingEntityRendererAccessor",
     "MixinAvatarRenderer",
     "MixinAvatarRenderState",
+    "MixinGui",
     "MixinHumanoidMobRenderer",
     "MixinMinecraft",
     "MixinPlayerModel"

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "undeadtakeover:block/blood_birch_slab"
+    },
+    "type=double": {
+      "model": "undeadtakeover:block/blood_birch_planks"
+    },
+    "type=top": {
+      "model": "undeadtakeover:block/blood_birch_slab_top"
+    }
+  }
+}

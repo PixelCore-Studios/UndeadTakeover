@@ -1,6 +1,14 @@
 {
   "values": [
     "undeadtakeover:decaying_body",
-    "undeadtakeover:dicephalus"
+    "undeadtakeover:dicephalus",
+    "undeadtakeover:wiggler",
+    "undeadtakeover:lanky",
+    "undeadtakeover:shingled",
+    "undeadtakeover:skull_spirit",
+    "undeadtakeover:undead_sheep",
+    "undeadtakeover:undead_cat",
+    "undeadtakeover:undead_wolf",
+    "undeadtakeover:undead_axolotl"
   ]
 }

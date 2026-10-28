@@ -15,4 +15,5 @@ dependencies {
     implementation(nyfs.geckolib.neoforge)
     implementation(nyfs.sbl.neoforge)
     implementation(nyfs.config.api.neoforge)
+    implementation("com.nyfaria.awcapi:awcapi-neoforge-26.1:1.0.2")
 }
