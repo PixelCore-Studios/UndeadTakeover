@@ -5,6 +5,7 @@ import com.nyfaria.undeadtakeover.init.BiomeInit;
 import com.nyfaria.undeadtakeover.init.BlockInit;
 import com.nyfaria.undeadtakeover.init.EntityInit;
 import com.nyfaria.undeadtakeover.init.FluidInit;
+import com.nyfaria.undeadtakeover.init.StructureInit;
 import com.nyfaria.undeadtakeover.init.TagInit;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Fluid;
 
 import java.util.concurrent.CompletableFuture;
@@ -174,6 +176,18 @@ public class ModTagProvider {
                     BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.UNDEAD_WOLF.get()).orElseThrow(),
                     BuiltInRegistries.ENTITY_TYPE.getResourceKey(EntityInit.UNDEAD_AXOLOTL.get()).orElseThrow()
             );
+        }
+    }
+
+    public static class ModStructureTags extends KeyTagProvider<Structure> {
+
+        public ModStructureTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+            super(output, Registries.STRUCTURE, lookupProvider, Constants.MODID);
+        }
+
+        @Override
+        protected void addTags(HolderLookup.Provider provider) {
+            tag(TagInit.NO_TREES).add(StructureInit.REVENANT_PORTAL);
         }
     }
 

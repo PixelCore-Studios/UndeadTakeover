@@ -7,6 +7,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Fluid;
 
 public class TagInit {
@@ -14,6 +15,8 @@ public class TagInit {
     public static final TagKey<Biome> HAS_REVENANT_PORTAL = TagKey.create(Registries.BIOME, Constants.modLoc("has_structure/revenant_portal"));
     public static final TagKey<Item> HEALTH_RESTORE_FOODS = TagKey.create(Registries.ITEM, Constants.modLoc("health_restore_foods"));
     public static final TagKey<EntityType<?>> UNDEAD_MOBS = TagKey.create(Registries.ENTITY_TYPE, Constants.modLoc("undead_mobs"));
+
+    public static final TagKey<Structure> NO_TREES = TagKey.create(Registries.STRUCTURE, Constants.modLoc("no_trees"));
 
     public static final TagKey<Fluid> BLOOD = TagKey.create(Registries.FLUID, Constants.modLoc("blood"));
 

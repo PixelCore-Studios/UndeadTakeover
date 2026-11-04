@@ -102,6 +102,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
 
@@ -343,10 +344,56 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
         context.register(StructureInit.REVENANT_PORTAL_POOL, new StructureTemplatePool(
                 empty,
                 List.of(Pair.of(
-                        StructurePoolElement.single(Constants.modLoc("graveyard/portal/revanent_portal").toString()), 1
+                        StructurePoolElement.single(Constants.modLoc("graveyard/enclosure").toString()), 1
                 )),
                 StructureTemplatePool.Projection.RIGID
         ));
+
+        context.register(StructureInit.GRAVEYARD_CENTERPIECES_POOL, new StructureTemplatePool(
+                empty,
+                List.of(Pair.of(
+                        StructurePoolElement.single(Constants.modLoc("graveyard/mausoleum/mausoleum").toString()), 1
+                )),
+                StructureTemplatePool.Projection.RIGID
+        ));
+
+        context.register(StructureInit.GRAVEYARD_PLOTS_POOL, new StructureTemplatePool(
+                empty,
+                List.of(
+                        graveyardPlot("rows_1", 3),
+                        graveyardPlot("rows_2", 3),
+                        graveyardPlot("rows_3", 3),
+                        graveyardPlot("old_rows_1", 2),
+                        graveyardPlot("old_rows_2", 2),
+                        graveyardPlot("dead_tree", 2),
+                        graveyardPlot("crypt_1", 1),
+                        graveyardPlot("crypt_2", 1),
+                        graveyardPlot("open_grave", 1),
+                        graveyardPlot("memorial", 1),
+                        graveyardPlot("family_plot", 1)
+                ),
+                StructureTemplatePool.Projection.RIGID
+        ));
+
+        context.register(StructureInit.GRAVEYARD_PORTALS_POOL, new StructureTemplatePool(
+                empty,
+                List.of(
+                        graveyardPortal("blackstone"),
+                        graveyardPortal("bone"),
+                        graveyardPortal("gothic"),
+                        graveyardPortal("soul"),
+                        graveyardPortal("ruined")
+                ),
+                StructureTemplatePool.Projection.RIGID
+        ));
+    }
+
+    private static Pair<Function<StructureTemplatePool.Projection, ? extends StructurePoolElement>, Integer> graveyardPlot(String name, int weight) {
+        return Pair.of(StructurePoolElement.single(Constants.modLoc("graveyard/plots/" + name).toString()), weight);
+    }
+
+    private static Pair<Function<StructureTemplatePool.Projection, ? extends StructurePoolElement>, Integer> graveyardPortal(String style) {
+        return Pair.of(StructurePoolElement.single(Constants.modLoc("graveyard/portal/plaza_" + style).toString()), 1);
     }
 
     public static void addStructures(BootstrapContext<Structure> context) {
@@ -370,7 +417,7 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
                         .build(),
                 templates.getOrThrow(StructureInit.REVENANT_PORTAL_POOL),
                 1,
-                ConstantHeight.of(VerticalAnchor.absolute(1)),
+                ConstantHeight.of(VerticalAnchor.absolute(0)),
                 false,
                 Heightmap.Types.WORLD_SURFACE_WG
         ));

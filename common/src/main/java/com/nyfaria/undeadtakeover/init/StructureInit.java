@@ -16,6 +16,10 @@ public class StructureInit {
     public static final ResourceKey<Structure> REVENANT_PORTAL = ResourceKey.create(Registries.STRUCTURE, Constants.modLoc("revenant_portal"));
     public static final ResourceKey<StructureSet> REVENANT_PORTAL_SET = ResourceKey.create(Registries.STRUCTURE_SET, Constants.modLoc("revenant_portal"));
 
+    public static final ResourceKey<StructureTemplatePool> GRAVEYARD_CENTERPIECES_POOL = ResourceKey.create(Registries.TEMPLATE_POOL, Constants.modLoc("graveyard/centerpieces"));
+    public static final ResourceKey<StructureTemplatePool> GRAVEYARD_PLOTS_POOL = ResourceKey.create(Registries.TEMPLATE_POOL, Constants.modLoc("graveyard/plots"));
+    public static final ResourceKey<StructureTemplatePool> GRAVEYARD_PORTALS_POOL = ResourceKey.create(Registries.TEMPLATE_POOL, Constants.modLoc("graveyard/portals"));
+
     public static void loadClass() {
     }
 }

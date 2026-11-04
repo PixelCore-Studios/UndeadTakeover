@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "undeadtakeover:graveyard/portal/revanent_portal",
+        "location": "undeadtakeover:graveyard/enclosure",
         "processors": {
           "processors": []
         },

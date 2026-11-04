@@ -12,6 +12,7 @@
     "MixinPlayer",
     "MixinProjectileUtil",
     "MixinServerPlayer",
+    "MixinTreeFeatures",
     "PlayerShoulderInvoker",
     "SpawnPlacementsInvoker"
   ],
