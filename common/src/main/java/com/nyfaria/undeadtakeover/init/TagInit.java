@@ -23,6 +23,8 @@ public class TagInit {
     public static final TagKey<Block> BLOOD_BIRCH_LOGS = TagKey.create(Registries.BLOCK, Constants.modLoc("blood_birch_logs"));
     public static final TagKey<Item> BLOOD_BIRCH_LOGS_ITEM = TagKey.create(Registries.ITEM, Constants.modLoc("blood_birch_logs"));
 
+    public static final TagKey<Block> LANKY_SNUFFABLE = TagKey.create(Registries.BLOCK, Constants.modLoc("lanky_snuffable"));
+
     public static void loadClass() {
     }
 }

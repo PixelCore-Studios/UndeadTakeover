@@ -76,11 +76,11 @@ public class EntityInit {
             Lanky::createAttributes);
 
     public static final RegistryObject<EntityType<?>, EntityType<Shingled>> SHINGLED = registerLivingEntity("shingled",
-            () -> EntityType.Builder.of(Shingled::new, MobCategory.MONSTER).sized(0.6F, 1.7F),
+            () -> EntityType.Builder.of(Shingled::new, MobCategory.AMBIENT).sized(0.6F, 1.7F),
             Shingled::createAttributes);
 
     public static final RegistryObject<EntityType<?>, EntityType<SkullSpirit>> SKULL_SPIRIT = registerLivingEntity("skull_spirit",
-            () -> EntityType.Builder.of(SkullSpirit::new, MobCategory.MONSTER).sized(0.5F, 1.2F),
+            () -> EntityType.Builder.of(SkullSpirit::new, MobCategory.AMBIENT).sized(0.5F, 1.2F),
             SkullSpirit::createAttributes);
 
     public static final RegistryObject<EntityType<?>, EntityType<UndeadSheep>> UNDEAD_SHEEP = registerLivingEntity("undead_sheep",
@@ -126,8 +126,8 @@ public class EntityInit {
         registerSpawnPlacement(SHADOWED, SpawnPlacementTypes.ON_GROUND, Monster::checkMonsterSpawnRules);
         registerSpawnPlacement(MOTH_SOUL, SpawnPlacementTypes.ON_GROUND, Mob::checkMobSpawnRules);
         registerSpawnPlacement(LANKY, SpawnPlacementTypes.ON_GROUND, Monster::checkMonsterSpawnRules);
-        registerSpawnPlacement(SHINGLED, SpawnPlacementTypes.ON_GROUND, Monster::checkMonsterSpawnRules);
-        registerSpawnPlacement(SKULL_SPIRIT, SpawnPlacementTypes.ON_GROUND, Monster::checkMonsterSpawnRules);
+        registerSpawnPlacement(SHINGLED, SpawnPlacementTypes.ON_GROUND, Mob::checkMobSpawnRules);
+        registerSpawnPlacement(SKULL_SPIRIT, SpawnPlacementTypes.ON_GROUND, Mob::checkMobSpawnRules);
         registerSpawnPlacement(UNDEAD_SHEEP, SpawnPlacementTypes.ON_GROUND, Monster::checkMonsterSpawnRules);
         registerSpawnPlacement(UNDEAD_CAT, SpawnPlacementTypes.ON_GROUND, Monster::checkMonsterSpawnRules);
         registerSpawnPlacement(UNDEAD_WOLF, SpawnPlacementTypes.ON_GROUND, Monster::checkMonsterSpawnRules);

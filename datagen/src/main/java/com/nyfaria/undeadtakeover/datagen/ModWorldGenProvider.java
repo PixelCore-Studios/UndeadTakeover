@@ -458,7 +458,9 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
         BiomeDefaultFeatures.addDefaultMushrooms(generation);
 
         return baseBiome(0.7F, 0.6F)
-                .mobSpawnSettings(revenantSpawns(70, 25, 5).build())
+                .mobSpawnSettings(revenantSpawns(70, 25, 5)
+                        .addSpawn(MobCategory.AMBIENT, 20, new MobSpawnSettings.SpawnerData(EntityInit.SHINGLED.get(), 1, 3))
+                        .build())
                 .generationSettings(generation.build())
                 .build();
     }
@@ -519,8 +521,7 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
         spawns.addSpawn(MobCategory.MONSTER, gravebeakWeight, new MobSpawnSettings.SpawnerData(EntityInit.GRAVEBEAK.get(), 1, 1));
         spawns.addSpawn(MobCategory.MONSTER, 10, new MobSpawnSettings.SpawnerData(EntityInit.SHADOWED.get(), 1, 1));
         spawns.addSpawn(MobCategory.MONSTER, 15, new MobSpawnSettings.SpawnerData(EntityInit.LANKY.get(), 1, 2));
-        spawns.addSpawn(MobCategory.MONSTER, 20, new MobSpawnSettings.SpawnerData(EntityInit.SHINGLED.get(), 1, 3));
-        spawns.addSpawn(MobCategory.MONSTER, 15, new MobSpawnSettings.SpawnerData(EntityInit.SKULL_SPIRIT.get(), 1, 2));
+        spawns.addSpawn(MobCategory.AMBIENT, 15, new MobSpawnSettings.SpawnerData(EntityInit.SKULL_SPIRIT.get(), 1, 2));
         spawns.addSpawn(MobCategory.MONSTER, 25, new MobSpawnSettings.SpawnerData(EntityInit.UNDEAD_SHEEP.get(), 2, 4));
         spawns.addSpawn(MobCategory.MONSTER, 15, new MobSpawnSettings.SpawnerData(EntityInit.UNDEAD_CAT.get(), 1, 2));
         spawns.addSpawn(MobCategory.MONSTER, 20, new MobSpawnSettings.SpawnerData(EntityInit.UNDEAD_WOLF.get(), 2, 4));

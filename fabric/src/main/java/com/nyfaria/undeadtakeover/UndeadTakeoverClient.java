@@ -1,5 +1,6 @@
 package com.nyfaria.undeadtakeover;
 
+import com.nyfaria.undeadtakeover.client.particle.BloodSmearParticle;
 import com.nyfaria.undeadtakeover.client.renderer.BloodSipperRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.DecayingBodyRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.DicephalusRenderer;
@@ -18,10 +19,12 @@ import com.nyfaria.undeadtakeover.client.renderer.WigglerRenderer;
 import com.nyfaria.undeadtakeover.init.BlockInit;
 import com.nyfaria.undeadtakeover.init.EntityInit;
 import com.nyfaria.undeadtakeover.init.FluidInit;
+import com.nyfaria.undeadtakeover.init.ParticleInit;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltInBlockModelsCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.object.boat.BoatModel;
@@ -71,5 +74,7 @@ public class UndeadTakeoverClient implements ClientModInitializer {
                 new Material(Constants.modLoc("block/blood_flow")),
                 null,
                 null));
+
+        ParticleProviderRegistry.getInstance().register(ParticleInit.BLOOD_SMEAR.get(), BloodSmearParticle.Provider::new);
     }
 }

@@ -24,6 +24,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Fluid;
 
@@ -108,6 +109,8 @@ public class ModTagProvider {
             populateTag(BlockTags.WALL_SIGNS, BlockInit.BLOOD_BIRCH_WALL_SIGN);
             populateTag(BlockTags.CEILING_HANGING_SIGNS, BlockInit.BLOOD_BIRCH_HANGING_SIGN);
             populateTag(BlockTags.WALL_HANGING_SIGNS, BlockInit.BLOOD_BIRCH_WALL_HANGING_SIGN);
+            populateTag(TagInit.LANKY_SNUFFABLE, () -> Blocks.TORCH, () -> Blocks.WALL_TORCH, () -> Blocks.SOUL_TORCH, () -> Blocks.SOUL_WALL_TORCH, () -> Blocks.COPPER_TORCH, () -> Blocks.COPPER_WALL_TORCH);
+            tag(TagInit.LANKY_SNUFFABLE).addTag(BlockTags.LANTERNS);
         }
 
         @SafeVarargs

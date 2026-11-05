@@ -2,6 +2,7 @@ package com.nyfaria.undeadtakeover.init;
 
 import com.nyfaria.undeadtakeover.Constants;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.SoundActions;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -27,7 +28,12 @@ public class FluidTypeInit {
             .viscosity(4000)
             .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
             .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
-            .sound(SoundActions.FLUID_VAPORIZE, SoundEvents.FIRE_EXTINGUISH)));
+            .sound(SoundActions.FLUID_VAPORIZE, SoundEvents.FIRE_EXTINGUISH)) {
+        @Override
+        public boolean canDrownIn(LivingEntity entity) {
+            return !entity.canBreatheUnderwater();
+        }
+    });
 
     public static void register(IEventBus modEventBus) {
         FLUID_TYPES.register(modEventBus);

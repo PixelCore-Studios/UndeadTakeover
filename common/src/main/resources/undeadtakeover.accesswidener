@@ -9,3 +9,4 @@ accessible field net/minecraft/world/entity/Entity yRot F
 accessible field net/minecraft/world/entity/Mob moveControl Lnet/minecraft/world/entity/ai/control/MoveControl;
 accessible field net/minecraft/world/entity/Mob lookControl Lnet/minecraft/world/entity/ai/control/LookControl;
 accessible field net/minecraft/world/entity/Mob jumpControl Lnet/minecraft/world/entity/ai/control/JumpControl;
+accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V

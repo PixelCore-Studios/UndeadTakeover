@@ -1,6 +1,7 @@
 package com.nyfaria.undeadtakeover.client;
 
 import com.nyfaria.undeadtakeover.Constants;
+import com.nyfaria.undeadtakeover.client.particle.BloodSmearParticle;
 import com.nyfaria.undeadtakeover.client.renderer.BloodSipperRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.DecayingBodyRenderer;
 import com.nyfaria.undeadtakeover.client.renderer.DicephalusRenderer;
@@ -20,6 +21,7 @@ import com.nyfaria.undeadtakeover.init.BlockInit;
 import com.nyfaria.undeadtakeover.init.EntityInit;
 import com.nyfaria.undeadtakeover.init.FluidInit;
 import com.nyfaria.undeadtakeover.init.FluidTypeInit;
+import com.nyfaria.undeadtakeover.init.ParticleInit;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -39,6 +41,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterBlockModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterFluidModelsEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.fluid.FluidTintSource;
@@ -112,6 +115,11 @@ public class UndeadTakeoverClient {
                 fogData.environmentalEnd = 6.0F;
             }
         }, FluidTypeInit.BLOOD.get());
+    }
+
+    @SubscribeEvent
+    public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(ParticleInit.BLOOD_SMEAR.get(), BloodSmearParticle.Provider::new);
     }
 
     @SubscribeEvent

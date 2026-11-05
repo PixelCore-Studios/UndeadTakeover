@@ -94,6 +94,12 @@
         "maxCount": 3,
         "minCount": 1,
         "weight": 15
+      },
+      {
+        "type": "undeadtakeover:skull_spirit",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 15
       }
     ],
     "axolotls": [],
@@ -138,18 +144,6 @@
       },
       {
         "type": "undeadtakeover:lanky",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 15
-      },
-      {
-        "type": "undeadtakeover:shingled",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 20
-      },
-      {
-        "type": "undeadtakeover:skull_spirit",
         "maxCount": 2,
         "minCount": 1,
         "weight": 15
