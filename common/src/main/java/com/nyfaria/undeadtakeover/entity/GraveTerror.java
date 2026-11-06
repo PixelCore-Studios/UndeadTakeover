@@ -72,7 +72,12 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
     private static final float RUN_SPEED = 1.5F;
 
     private static final EntityDataAccessor<Byte> DATA_PHASE = SynchedEntityData.defineId(GraveTerror.class, EntityDataSerializers.BYTE);
+    public static final String CONTROLLER = "main";
+    public static final String SUMMON_ANIM = "summon";
+
     private static final RawAnimation FLY = RawAnimation.begin().thenLoop("animation.grave_terror.fly");
+    private static final RawAnimation FLY_IDLE = RawAnimation.begin().thenLoop("animation.grave_terror.fly_idle");
+    private static final RawAnimation SUMMON = RawAnimation.begin().thenPlay("animation.grave_terror.summon");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("animation.grave_terror.walk");
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.grave_terror.idle");
 
@@ -342,13 +347,13 @@ public class GraveTerror extends PathfinderMob implements GeoEntity, SmartBrainO
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>("main", test -> {
+        controllers.add(new AnimationController<>(CONTROLLER, test -> {
             if (this.isAirPhase()) {
-                return test.setAndContinue(FLY);
+                return test.setAndContinue(test.isMoving() ? FLY : FLY_IDLE);
             }
 
             return test.setAndContinue(test.isMoving() ? WALK : IDLE);
-        }));
+        }).triggerableAnim(SUMMON_ANIM, SUMMON));
     }
 
     @Override

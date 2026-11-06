@@ -1,9 +1,9 @@
 package com.nyfaria.undeadtakeover.entity.ai.goals;
 
+import com.nyfaria.undeadtakeover.entity.Lanky;
 import com.nyfaria.undeadtakeover.init.TagInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.Vec3;
@@ -14,14 +14,16 @@ public class SnuffLightsGoal extends Goal {
     private static final int SEARCH_RADIUS = 12;
     private static final int SEARCH_HEIGHT = 6;
     private static final int GIVE_UP_TICKS = 200;
+    private static final int SNUFF_DELAY = 22;
 
-    private final PathfinderMob mob;
+    private final Lanky mob;
     private final double speed;
     private BlockPos target;
     private int searchCooldown;
     private int ticks;
+    private int snuffTicks;
 
-    public SnuffLightsGoal(PathfinderMob mob, double speed) {
+    public SnuffLightsGoal(Lanky mob, double speed) {
         this.mob = mob;
         this.speed = speed;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
@@ -43,7 +45,7 @@ public class SnuffLightsGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.target != null && this.ticks < GIVE_UP_TICKS && this.isLight(this.target);
+        return this.target != null && (this.snuffTicks > 0 || this.ticks < GIVE_UP_TICKS) && this.isLight(this.target);
     }
 
     @Override
@@ -54,6 +56,7 @@ public class SnuffLightsGoal extends Goal {
     @Override
     public void start() {
         this.ticks = 0;
+        this.snuffTicks = 0;
         this.moveToTarget();
     }
 
@@ -63,6 +66,7 @@ public class SnuffLightsGoal extends Goal {
             this.searchCooldown = reducedTickDelay(100);
         }
         this.target = null;
+        this.snuffTicks = 0;
         this.mob.getNavigation().stop();
     }
 
@@ -74,9 +78,15 @@ public class SnuffLightsGoal extends Goal {
         this.ticks++;
         Vec3 center = Vec3.atCenterOf(this.target);
         this.mob.getLookControl().setLookAt(center);
-        if (this.mob.getBoundingBox().inflate(1.5).contains(center)) {
-            this.mob.level().destroyBlock(this.target, true, this.mob);
-            this.target = null;
+        if (this.snuffTicks > 0) {
+            if (--this.snuffTicks == 0) {
+                this.mob.level().destroyBlock(this.target, true, this.mob);
+                this.target = null;
+            }
+        } else if (this.mob.getBoundingBox().inflate(1.5).contains(center)) {
+            this.mob.getNavigation().stop();
+            this.mob.triggerAnim(Lanky.CONTROLLER, Lanky.SNUFF_ANIM);
+            this.snuffTicks = SNUFF_DELAY;
         } else if (this.ticks % 20 == 0) {
             this.moveToTarget();
         }

@@ -37,6 +37,7 @@ public class SummonUndeadBehaviour extends ExtendedBehaviour<GraveTerror> {
             return;
         }
 
+        entity.triggerAnim(GraveTerror.CONTROLLER, GraveTerror.SUMMON_ANIM);
         List<BlockPos> wavePositions = entity.getWavePositions();
         int count = 3 + entity.getRandom().nextInt(2);
         int offset = entity.getRandom().nextInt(wavePositions.size());
