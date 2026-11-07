@@ -13,6 +13,7 @@ import com.nyfaria.undeadtakeover.entity.data.SoulStolenState;
 import com.nyfaria.undeadtakeover.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -62,6 +63,15 @@ public class Shadowed extends PathfinderMob implements GeoEntity {
     protected void defineSynchedData(SynchedEntityData.Builder entityData) {
         super.defineSynchedData(entityData);
         entityData.define(DATA_DRAINING, false);
+    }
+
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.level().isClientSide() && this.random.nextInt(5) == 0) {
+            this.level().addParticle(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.9), this.getRandomY(), this.getRandomZ(0.6), 0.0, 0.0, 0.0);
+        }
     }
 
     public boolean isDraining() {
