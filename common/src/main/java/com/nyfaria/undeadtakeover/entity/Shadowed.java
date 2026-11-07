@@ -13,7 +13,7 @@ import com.nyfaria.undeadtakeover.entity.data.SoulStolenState;
 import com.nyfaria.undeadtakeover.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -50,6 +50,7 @@ public class Shadowed extends PathfinderMob implements GeoEntity {
     private static final EntityDataAccessor<Boolean> DATA_DRAINING = SynchedEntityData.defineId(Shadowed.class, EntityDataSerializers.BOOLEAN);
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.shadowed.idle");
     private static final RawAnimation SOUL_SUCK = RawAnimation.begin().thenLoop("animation.shadowed.soul_suck");
+    private static final DustParticleOptions PARTICLE = new DustParticleOptions(0x1F1F1F, 0.8F);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -69,8 +70,8 @@ public class Shadowed extends PathfinderMob implements GeoEntity {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.level().isClientSide() && this.random.nextInt(5) == 0) {
-            this.level().addParticle(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.9), this.getRandomY(), this.getRandomZ(0.6), 0.0, 0.0, 0.0);
+        if (this.level().isClientSide() && this.random.nextInt(2) == 0) {
+            this.level().addParticle(PARTICLE, this.getRandomX(0.9), this.getRandomY(), this.getRandomZ(0.6), 0.0, 0.0, 0.0);
         }
     }
 
