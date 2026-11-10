@@ -1,6 +1,9 @@
 package com.nyfaria.undeadtakeover.datagen;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.JsonOps;
 import com.nyfaria.undeadtakeover.Constants;
 import com.nyfaria.undeadtakeover.init.BiomeInit;
 import com.nyfaria.undeadtakeover.init.BlockInit;
@@ -17,6 +20,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -59,6 +63,7 @@ import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseRouterData;
 import net.minecraft.world.level.levelgen.NoiseSettings;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
@@ -165,13 +170,40 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
         ));
     }
 
+    private static SurfaceRules.RuleSource revenantSurface() {
+        JsonElement json = SurfaceRules.RuleSource.CODEC.encodeStart(JsonOps.INSTANCE, SurfaceRuleData.overworld()).getOrThrow();
+        swapSurfaceBlocks(json, BuiltInRegistries.BLOCK.getKey(BlockInit.REVENANT_SOIL.get()).toString());
+        return SurfaceRules.RuleSource.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+    }
+
+    private static void swapSurfaceBlocks(JsonElement element, String replacement) {
+        if (element.isJsonArray()) {
+            element.getAsJsonArray().forEach(child -> swapSurfaceBlocks(child, replacement));
+            return;
+        }
+        if (!element.isJsonObject()) {
+            return;
+        }
+        JsonObject object = element.getAsJsonObject();
+        if (object.has("Name")) {
+            String name = object.get("Name").getAsString();
+            if (name.equals("minecraft:grass_block") || name.equals("minecraft:dirt")) {
+                object.addProperty("Name", replacement);
+                object.remove("Properties");
+            }
+        }
+        for (String key : List.copyOf(object.keySet())) {
+            swapSurfaceBlocks(object.get(key), replacement);
+        }
+    }
+
     public static void addNoiseSettings(BootstrapContext<NoiseGeneratorSettings> context) {
         context.register(DimensionInit.THE_REVENANT_NOISE, new NoiseGeneratorSettings(
                 NoiseSettings.create(-64, 384, 1, 2),
                 Blocks.STONE.defaultBlockState(),
                 BlockInit.BLOOD.get().defaultBlockState(),
                 NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE), false, false),
-                SurfaceRuleData.overworld(),
+                revenantSurface(),
                 new OverworldBiomeBuilder().spawnTarget(),
                 63,
                 false,
@@ -213,7 +245,7 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
                 true,
                 4,
                 1,
-                HolderSet.direct(Block::builtInRegistryHolder, Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.DEEPSLATE, Blocks.TUFF, Blocks.CALCITE, Blocks.DIRT)
+                HolderSet.direct(Block::builtInRegistryHolder, Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.DEEPSLATE, Blocks.TUFF, Blocks.CALCITE, Blocks.DIRT, BlockInit.REVENANT_SOIL.get())
         )));
         context.register(FeatureInit.BLOOD_LAKE, new ConfiguredFeature<>(Feature.LAKE, new LakeFeature.Configuration(
                 BlockStateProvider.simple(BlockInit.BLOOD.get()),
@@ -221,13 +253,13 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
         )));
         context.register(FeatureInit.BLOOD_DISK_SAND, new ConfiguredFeature<>(Feature.DISK, new DiskConfiguration(
                 BlockStateProvider.simple(Blocks.SAND),
-                BlockPredicate.matchesBlocks(List.of(Blocks.DIRT, Blocks.GRASS_BLOCK)),
+                BlockPredicate.matchesBlocks(List.of(Blocks.DIRT, Blocks.GRASS_BLOCK, BlockInit.REVENANT_SOIL.get())),
                 UniformInt.of(2, 6),
                 2
         )));
         context.register(FeatureInit.BLOOD_DISK_CLAY, new ConfiguredFeature<>(Feature.DISK, new DiskConfiguration(
                 BlockStateProvider.simple(Blocks.CLAY),
-                BlockPredicate.matchesBlocks(List.of(Blocks.DIRT, Blocks.CLAY)),
+                BlockPredicate.matchesBlocks(List.of(Blocks.DIRT, Blocks.CLAY, BlockInit.REVENANT_SOIL.get())),
                 UniformInt.of(2, 3),
                 1
         )));

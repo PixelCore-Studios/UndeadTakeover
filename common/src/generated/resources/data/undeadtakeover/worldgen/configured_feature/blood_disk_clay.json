@@ -17,7 +17,8 @@
       "type": "minecraft:matching_blocks",
       "blocks": [
         "minecraft:dirt",
-        "minecraft:clay"
+        "minecraft:clay",
+        "undeadtakeover:revenant_soil"
       ]
     }
   }

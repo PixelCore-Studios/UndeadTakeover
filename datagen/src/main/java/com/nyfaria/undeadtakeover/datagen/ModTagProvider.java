@@ -95,6 +95,8 @@ public class ModTagProvider {
             tag(BlockTags.LOGS_THAT_BURN).addTag(TagInit.BLOOD_BIRCH_LOGS);
             populateTag(BlockTags.PREVENTS_NEARBY_LEAF_DECAY, BlockInit.BLOOD_BIRCH_LOG, BlockInit.BLOOD_BIRCH_STRIPPED_LOG, BlockInit.BLOOD_BIRCH_WOOD, BlockInit.BLOOD_BIRCH_STRIPPED_WOOD);
             populateTag(BlockTags.LEAVES, BlockInit.BLOOD_BIRCH_LEAVES);
+            populateTag(BlockTags.DIRT, BlockInit.REVENANT_SOIL);
+            populateTag(BlockTags.MINEABLE_WITH_SHOVEL, BlockInit.REVENANT_SOIL);
             populateTag(BlockTags.SAPLINGS, BlockInit.BLOOD_BIRCH_SAPLING);
             populateTag(BlockTags.PLANKS, BlockInit.BLOOD_BIRCH_PLANKS);
             populateTag(BlockTags.WOODEN_STAIRS, BlockInit.BLOOD_BIRCH_STAIRS);

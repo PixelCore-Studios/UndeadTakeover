@@ -562,17 +562,14 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "minecraft:grass_block",
-                                    "Properties": {
-                                      "snowy": "false"
-                                    }
+                                    "Name": "undeadtakeover:revenant_soil"
                                   }
                                 }
                               },
                               {
                                 "type": "minecraft:block",
                                 "result_state": {
-                                  "Name": "minecraft:dirt"
+                                  "Name": "undeadtakeover:revenant_soil"
                                 }
                               }
                             ]
@@ -1615,17 +1612,14 @@
                                       "then_run": {
                                         "type": "minecraft:block",
                                         "result_state": {
-                                          "Name": "minecraft:grass_block",
-                                          "Properties": {
-                                            "snowy": "false"
-                                          }
+                                          "Name": "undeadtakeover:revenant_soil"
                                         }
                                       }
                                     },
                                     {
                                       "type": "minecraft:block",
                                       "result_state": {
-                                        "Name": "minecraft:dirt"
+                                        "Name": "undeadtakeover:revenant_soil"
                                       }
                                     }
                                   ]
@@ -1780,17 +1774,14 @@
                               "then_run": {
                                 "type": "minecraft:block",
                                 "result_state": {
-                                  "Name": "minecraft:grass_block",
-                                  "Properties": {
-                                    "snowy": "false"
-                                  }
+                                  "Name": "undeadtakeover:revenant_soil"
                                 }
                               }
                             },
                             {
                               "type": "minecraft:block",
                               "result_state": {
-                                "Name": "minecraft:dirt"
+                                "Name": "undeadtakeover:revenant_soil"
                               }
                             }
                           ]
@@ -2048,7 +2039,7 @@
                               {
                                 "type": "minecraft:block",
                                 "result_state": {
-                                  "Name": "minecraft:dirt"
+                                  "Name": "undeadtakeover:revenant_soil"
                                 }
                               }
                             ]
@@ -2360,7 +2351,7 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "minecraft:dirt"
+                                    "Name": "undeadtakeover:revenant_soil"
                                   }
                                 }
                               },
@@ -2412,7 +2403,7 @@
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "minecraft:dirt"
+                            "Name": "undeadtakeover:revenant_soil"
                           }
                         }
                       ]

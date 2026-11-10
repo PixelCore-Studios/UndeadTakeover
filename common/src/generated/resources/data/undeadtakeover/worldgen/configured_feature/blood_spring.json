@@ -18,7 +18,8 @@
       "minecraft:deepslate",
       "minecraft:tuff",
       "minecraft:calcite",
-      "minecraft:dirt"
+      "minecraft:dirt",
+      "undeadtakeover:revenant_soil"
     ]
   }
 }

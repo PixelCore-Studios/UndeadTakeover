@@ -53,6 +53,7 @@ public class ModModelProvider extends ModelProvider {
                 .with(PropertyDispatch.initial(RevenantAnchorBlock.CHARGE).generate(charge -> BlockModelGenerators.plainVariant(anchorModels[charge]))));
         blockModels.registerSimpleItemModel(BlockInit.REVENANT_ANCHOR.get(), anchorModels[0]);
 
+        blockModels.createTrivialCube(BlockInit.REVENANT_SOIL.get());
         blockModels.createTrivialBlock(BlockInit.BLOOD_BIRCH_LEAVES.get(), TexturedModel.LEAVES);
         blockModels.createCrossBlockWithDefaultItem(BlockInit.BLOOD_BIRCH_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 

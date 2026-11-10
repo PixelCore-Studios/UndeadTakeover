@@ -97,6 +97,13 @@ public class BlockInit {
     public static final RegistryObject<BlockEntityType<?>, BlockEntityType<RevenantAnchorBlockEntity>> REVENANT_ANCHOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("revenant_anchor",
             () -> Services.BLOCK_ENTITY_TYPES.createType(RevenantAnchorBlockEntity::new, REVENANT_ANCHOR.get()));
 
+    public static final RegistryObject<Block, Block> REVENANT_SOIL = registerBlock("revenant_soil",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .setId(blockKey("revenant_soil"))
+                    .mapColor(MapColor.COLOR_RED)
+                    .strength(0.5F)
+                    .sound(SoundType.ROOTED_DIRT)));
+
     private static final TreeGrower BLOOD_BIRCH_GROWER = new TreeGrower("blood_birch", Optional.empty(), Optional.of(FeatureInit.BLOOD_BIRCH_TREE), Optional.empty());
 
     public static final RegistryObject<Block, RotatedPillarBlock> BLOOD_BIRCH_LOG = registerBlock("blood_birch_log",
