@@ -516,13 +516,13 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
                 .hasPrecipitation(true)
                 .temperature(temperature)
                 .downfall(downfall)
-                .setAttribute(EnvironmentAttributes.SKY_COLOR, 0x6E7A64)
-                .setAttribute(EnvironmentAttributes.FOG_COLOR, 0x7F8C6E)
-                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x4A0508)
+                .setAttribute(EnvironmentAttributes.SKY_COLOR, 0x661B14)
+                .setAttribute(EnvironmentAttributes.FOG_COLOR, 0x6B1A13)
+                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x3D080B)
                 .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x8A0F12)
-                        .grassColorOverride(0x6B7A45)
-                        .foliageColorOverride(0x5A6838)
+                        .grassColorOverride(0x825724)
+                        .foliageColorOverride(0x825724)
                         .build());
     }
 
