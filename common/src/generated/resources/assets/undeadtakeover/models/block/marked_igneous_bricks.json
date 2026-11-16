@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "undeadtakeover:block/marked_igneous_bricks"
+  }
+}

@@ -97,6 +97,7 @@ public class ModTagProvider {
             populateTag(BlockTags.LEAVES, BlockInit.BLOOD_BIRCH_LEAVES);
             populateTag(BlockTags.DIRT, BlockInit.REVENANT_SOIL);
             populateTag(BlockTags.MINEABLE_WITH_SHOVEL, BlockInit.REVENANT_SOIL);
+            populateTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockInit.IGNEOUS_BRICKS, BlockInit.MARKED_IGNEOUS_BRICKS, BlockInit.REVENANT_IGNEOUS_BRICKS, BlockInit.UNDEAD_RELIC);
             populateTag(BlockTags.SAPLINGS, BlockInit.BLOOD_BIRCH_SAPLING);
             populateTag(BlockTags.PLANKS, BlockInit.BLOOD_BIRCH_PLANKS);
             populateTag(BlockTags.WOODEN_STAIRS, BlockInit.BLOOD_BIRCH_STAIRS);

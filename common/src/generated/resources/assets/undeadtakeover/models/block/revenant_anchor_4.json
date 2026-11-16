@@ -1,8 +1,6 @@
 {
-  "parent": "minecraft:block/cube_bottom_top",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "bottom": "undeadtakeover:block/revenant_anchor_bottom",
-    "side": "undeadtakeover:block/revenant_anchor_side4",
-    "top": "undeadtakeover:block/revenant_anchor_top"
+    "all": "undeadtakeover:block/spirit_snatcher_4"
   }
 }

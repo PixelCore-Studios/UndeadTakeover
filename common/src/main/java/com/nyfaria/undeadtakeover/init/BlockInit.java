@@ -104,6 +104,42 @@ public class BlockInit {
                     .strength(0.5F)
                     .sound(SoundType.ROOTED_DIRT)));
 
+    public static final RegistryObject<Block, Block> IGNEOUS_BRICKS = registerBlock("igneous_bricks",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .setId(blockKey("igneous_bricks"))
+                    .mapColor(MapColor.NETHER)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F, 6.0F)
+                    .sound(SoundType.NETHER_BRICKS)));
+
+    public static final RegistryObject<Block, Block> MARKED_IGNEOUS_BRICKS = registerBlock("marked_igneous_bricks",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .setId(blockKey("marked_igneous_bricks"))
+                    .mapColor(MapColor.NETHER)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F, 6.0F)
+                    .sound(SoundType.NETHER_BRICKS)));
+
+    public static final RegistryObject<Block, Block> REVENANT_IGNEOUS_BRICKS = registerBlock("revenant_igneous_bricks",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .setId(blockKey("revenant_igneous_bricks"))
+                    .mapColor(MapColor.NETHER)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F, 6.0F)
+                    .sound(SoundType.NETHER_BRICKS)));
+
+    public static final RegistryObject<Block, Block> UNDEAD_RELIC = registerBlock("undead_relic",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .setId(blockKey("undead_relic"))
+                    .mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.5F, 6.0F)
+                    .sound(SoundType.STONE)));
+
     private static final TreeGrower BLOOD_BIRCH_GROWER = new TreeGrower("blood_birch", Optional.empty(), Optional.of(FeatureInit.BLOOD_BIRCH_TREE), Optional.empty());
 
     public static final RegistryObject<Block, RotatedPillarBlock> BLOOD_BIRCH_LOG = registerBlock("blood_birch_log",

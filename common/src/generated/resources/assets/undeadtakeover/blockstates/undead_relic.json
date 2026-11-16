@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "undeadtakeover:block/undead_relic_1"
+      },
+      {
+        "model": "undeadtakeover:block/undead_relic_2"
+      },
+      {
+        "model": "undeadtakeover:block/undead_relic_3"
+      }
+    ]
+  }
+}

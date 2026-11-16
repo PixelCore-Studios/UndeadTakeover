@@ -12,7 +12,7 @@ import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.core.Direction;
@@ -43,17 +43,29 @@ public class ModModelProvider extends ModelProvider {
 
         Identifier[] anchorModels = new Identifier[5];
         for (int charge = 0; charge < anchorModels.length; charge++) {
-            TextureMapping mapping = new TextureMapping()
-                    .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(BlockInit.REVENANT_ANCHOR.get(), "_bottom"))
-                    .put(TextureSlot.TOP, TextureMapping.getBlockTexture(BlockInit.REVENANT_ANCHOR.get(), charge == 0 ? "_top_off" : "_top"))
-                    .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(BlockInit.REVENANT_ANCHOR.get(), "_side" + charge));
-            anchorModels[charge] = ModelTemplates.CUBE_BOTTOM_TOP.createWithSuffix(BlockInit.REVENANT_ANCHOR.get(), "_" + charge, mapping, blockModels.modelOutput);
+            TextureMapping mapping = TextureMapping.cube(new Material(Constants.modLoc("block/spirit_snatcher_" + charge)));
+            anchorModels[charge] = ModelTemplates.CUBE_ALL.createWithSuffix(BlockInit.REVENANT_ANCHOR.get(), "_" + charge, mapping, blockModels.modelOutput);
         }
         blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlockInit.REVENANT_ANCHOR.get())
                 .with(PropertyDispatch.initial(RevenantAnchorBlock.CHARGE).generate(charge -> BlockModelGenerators.plainVariant(anchorModels[charge]))));
         blockModels.registerSimpleItemModel(BlockInit.REVENANT_ANCHOR.get(), anchorModels[0]);
 
         blockModels.createTrivialCube(BlockInit.REVENANT_SOIL.get());
+        blockModels.createTrivialCube(BlockInit.IGNEOUS_BRICKS.get());
+        blockModels.createTrivialCube(BlockInit.MARKED_IGNEOUS_BRICKS.get());
+        blockModels.createTrivialCube(BlockInit.REVENANT_IGNEOUS_BRICKS.get());
+
+        Identifier[] relicModels = new Identifier[3];
+        for (int i = 0; i < relicModels.length; i++) {
+            String suffix = "_" + (i + 1);
+            relicModels[i] = ModelTemplates.CUBE_ALL.createWithSuffix(BlockInit.UNDEAD_RELIC.get(), suffix,
+                    TextureMapping.cube(TextureMapping.getBlockTexture(BlockInit.UNDEAD_RELIC.get(), suffix)), blockModels.modelOutput);
+        }
+        blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(BlockInit.UNDEAD_RELIC.get(), BlockModelGenerators.variants(
+                BlockModelGenerators.plainModel(relicModels[0]),
+                BlockModelGenerators.plainModel(relicModels[1]),
+                BlockModelGenerators.plainModel(relicModels[2]))));
+        blockModels.registerSimpleItemModel(BlockInit.UNDEAD_RELIC.get(), relicModels[0]);
         blockModels.createTrivialBlock(BlockInit.BLOOD_BIRCH_LEAVES.get(), TexturedModel.LEAVES);
         blockModels.createCrossBlockWithDefaultItem(BlockInit.BLOOD_BIRCH_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
